@@ -23,7 +23,7 @@
         <div class="card-body">
         <h4 class="card-title">{{$item}}</h4>
         <p class="card-text">Some example text.</p>
-        <a href="{{url('/ProductDetails/{id}')}}" class="btn btn-primary">show</a>
+        <a href="./welcome" class="btn btn-primary">show</a>
     </div>
     </div>
         @endforeach 
