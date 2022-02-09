@@ -17,7 +17,8 @@
     <p class="card-text">{{ $artical->slug}}</p>
     <p class="card-text">{{ $artical-> category_id}}</p>
     <p class="card-text">{{ $artical-> confirmed}}</p>
-
+    <h2>related category</h2>
+    <h4>{{$artical->category->name}}</h4>
     <a href="/art" class="btn btn-primary">back</a>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 

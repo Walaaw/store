@@ -12,10 +12,25 @@
     @csrf
     @method('PUT')
         name: <input type="text" name="name" value={{$artical->name}} >
+        @error('name')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
         details: <input type="text" name="details" value={{$artical->details}}><br>
+        @error('details')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
         slug: <input type="text" name="slug" value={{$artical->slug}}><br>
+        @error('slug')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
         category_id:<input type="number" name="category_id" value={{$artical->category_id}}><br>
+        @error('category_id')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
         confirmed:<input type="text" name="confirmed" value={{$artical->confirmed}}><br>
+        @error('confirmed')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
         <input type="submit" name="submit" value="edit">
     </form>
 </body>

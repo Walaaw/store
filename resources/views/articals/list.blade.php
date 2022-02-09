@@ -28,13 +28,13 @@
         <td><button type="button" class="btn btn-warning"><a href="/art/delete/{{$artical-> id }}">Delete </a></button></td>
         <td><button type="button" class="btn btn-dark"><a href="/art/show/{{ $artical-> id }}">show</a></button>
         <td><button type="button" class="btn btn-warning"><a href="/art/edit/{{ $artical -> id }}">edit</a></button>
-
 </td>
-
       </tr>
       @endforeach
     </tbody>
   </table>
+  
+
 </div>
 <button type="button" class="btn btn-warning"><a href="/blog">back to blog</a></button>
 

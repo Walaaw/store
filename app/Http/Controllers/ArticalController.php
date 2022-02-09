@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 use App\Models\Artical;
-
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreArticleRequest;
+
 
 class ArticalController extends Controller
 {
@@ -14,13 +16,14 @@ class ArticalController extends Controller
     public function create(){
         return view('articals.create');
     }
-    public function save(Request $request){
+    public function save(StoreArticleRequest $request){
+        $validatedData = $request->validated();
         $artical=new Artical;
-        $artical->name=$request->name;
-        $artical->slug=$request->slug;
-        $artical->details=$request->details;
-        $artical->category_id=$request->category_id;
-        $artical->confirmed=$request->confirmed;
+        $artical->name=$validatedData['name'];
+        $artical->slug=$validatedData['slug'];
+        $artical->details=$validatedData['details'];
+        $artical->category_id=$validatedData['category_id'];
+        $artical->confirmed=$validatedData['confirmed'];
         $artical->save();
         return redirect('/art');
     }
@@ -29,26 +32,36 @@ class ArticalController extends Controller
      $artical= Artical::find($id);  
     return view('articals.edit',['artical'=>$artical]);  
     }  
-    public function SaveEdit(Request $request,$id){
-         $artical = Artical::find($id);  
-         $artical->name= $request->name;
-         $artical->save();
+    public function SaveEdit(StoreArticleRequest $request,$id){
+        $validatedData = $request->validated(); 
+        $artical = Artical::find($id);  
+        $artical->name=$validatedData['name'];
+        $artical->slug=$validatedData['slug'];
+        $artical->details=$validatedData['details'];
+        $artical->category_id=$validatedData['category_id'];
+        $artical->confirmed=$validatedData['confirmed'];
+        $artical->save();
         return redirect('/art');
     }
     public function delete($id)  
     {  
         $artical = Artical::where('id','=', $id)->get(); 
-     if($artical){
+        if($artical){
         $artical->each->delete();
          return redirect('/art');
 
      }
      return redirect('/art');
     } 
+    
     public function show($id){
-        $artical= Artical::find($id);  
-        return view('articals.show', ['artical' =>  $artical]);
+        $artical= Artical::find($id);
+        $data =Artical ::join('categories', 'articals.category_id', '=', 'categories.id')
+        ->where('categories.id','=', $artical->category_id)
+        ->get();
+        return view('articals.show', ['artical' => $artical],['data' =>$data]);
 
     } 
+   
    
 }
