@@ -1,12 +1,10 @@
 <?php
 
-use App\Http\Controllers\products;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\products;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ArticalController;
 use App\Http\Controllers\BlogController;
-
-use App\Post;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,12 +17,21 @@ use App\Post;
 |
 */
 
+Route::get('/', function () {
+    return view('welcome');
+});
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
 Route::get('/', [products::class, 'show_categories']);
 Route::get('/home', [products::class, 'show_categories']);
 Route::get('/ProductDetails/{id}',[products::class,'product_details']);
-Route::get('/cat',[CategoryController::class,'list']);
-Route::get('/create',[CategoryController::class,'create']);
+// ------------------------------------------------------------
+Route::get('/cat',[CategoryController::class,'list'])->middleware(['auth']);
+Route::get('/create',[CategoryController::class,'create'])->middleware(['auth','isAdmin','isAdult']);
 Route::post('/save',[CategoryController::class,'save']);
 Route::get('/delete/{id}',[CategoryController::class,'delete']);
 Route::get('/show/{id}',[CategoryController::class,'show']);
@@ -40,6 +47,3 @@ Route::get('/art/edit/{id}',[ArticalController::class,'edit']);
 Route::put('/art/SaveEdit/{id}',[ArticalController::class,'SaveEdit']);
 // -------------------------------------------------------------------
 Route::get('/blog',[BlogController::class,'show']);
-
-
-
